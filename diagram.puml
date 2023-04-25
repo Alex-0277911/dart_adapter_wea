@@ -1,0 +1,30 @@
+@startuml
+set namespaceSeparator ::
+
+abstract class "dart_adapter_wea::dart_adapter_wea.dart::WeatherService" {
+  +Future<WeatherData> getWeather()
+}
+
+class "dart_adapter_wea::dart_adapter_wea.dart::WeatherData" {
+  +DateTime date
+  +String location
+  +double temperature
+  +int pressure
+  +int humidity
+  +double windSpeed
+}
+
+class "dart_adapter_wea::dart_adapter_wea.dart::OpenWeatherMapApi" {
+  +Future<Map<String, dynamic>> fetchWeather()
+}
+
+class "dart_adapter_wea::dart_adapter_wea.dart::OpenWeatherMapAdapter" {
+  -OpenWeatherMapApi _api
+  +Future<WeatherData> getWeather()
+}
+
+"dart_adapter_wea::dart_adapter_wea.dart::OpenWeatherMapAdapter" o-- "dart_adapter_wea::dart_adapter_wea.dart::OpenWeatherMapApi"
+"dart_adapter_wea::dart_adapter_wea.dart::WeatherService" <|-- "dart_adapter_wea::dart_adapter_wea.dart::OpenWeatherMapAdapter"
+
+
+@enduml
